@@ -1,3 +1,7 @@
+**NOTE**
+Dark Sky has joined Apple and will no longer be accepting new requests for its API.
+You can read more on [their blog](https://blog.darksky.net/).
+
 This project uses the [Dark Sky API](https://darksky.net/dev). To use this project,
 create an account with Dark Sky and obtain a secret key that grants access to
 the API. Then, create a **key.id** file with the secret key and the coordinates
