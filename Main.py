@@ -29,15 +29,15 @@ def main():
         print()
 
     if args.M:
-        acworth.printMinutelyWeatherData()
+        acworth.formattedMinutelyWeatherData()
         print()
 
     if args.H:
-        acworth.printHourlyWeatherData()
+        acworth.formattedHourlyWeatherData()
         print()
 
     if args.D:
-        acworth.printDailyWeatherData()
+        acworth.formattedDailyWeatherData()
         print()
 
     if args.F:
