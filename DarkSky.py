@@ -136,13 +136,21 @@ class ForecastRequest:
         return len(self.data['minutely']['data'])
 
     def getMinutelyData(self, index=0):
-##        tm = time.ctime(self.data['minutely']['data'][index]['time'])
         tm = datetime.datetime.fromtimestamp(self.data['minutely']['data'][index]['time']).strftime('%H:%M')
+
         precipIntensity = self.data['minutely']['data'][index]['precipIntensity']
-##        precipIntensityError = self.data['minutely']['data'][index]['precipIntensityError']
+        if precipIntensity > 0:
+            precipIntensityError = self.data['minutely']['data'][index]['precipIntensityError']
+        else:
+            prcipIntensityError = 'N/A'
+
         precipProbability = self.data['minutely']['data'][index]['precipProbability']
-##        precipType = self.data['minutely']['data'][index]['precipType']
-        return (tm, precipIntensity, precipProbability)
+        if precipProbability > 0:
+            precipType = self.data['minutely']['data'][index]['precipType']
+        else:
+            precipType = 'N/A'
+            
+        return (tm, precipIntensity, prcipIntensityError, precipProbability, precipType)
 
     ''' Hourly data request '''
     def getHourlySummary(self):
@@ -158,19 +166,28 @@ class ForecastRequest:
         tm = time.ctime(self.data['hourly']['data'][index]['time'])
         summary = self.data['hourly']['data'][index]['summary']
         icon = self.data['hourly']['data'][index]['icon']
+        
         precipIntensity = self.data['hourly']['data'][index]['precipIntensity']
-##        precipIntensityError = self.data['hourly']['data'][index]['precipIntensityError']
+##        if precipIntensity > 0:
+##            precipIntensityError = self.data['hourly']['data'][index]['precipIntensityError']
+##        else:
+##            precipIntensityError = 'N/A'
+
         precipProbability = self.data['hourly']['data'][index]['precipProbability']
-##        precipType = self.data['hourly']['data'][index]['precipType']
+        if precipProbability > 0:
+            precipType = self.data['hourly']['data'][index]['precipType']
+        else:
+            precipType = 'N/A'
+
         temperature = self.data['hourly']['data'][index]['temperature']
         apparentTemperature = self.data['hourly']['data'][index]['apparentTemperature']
         dewPoint = self.data['hourly']['data'][index]['dewPoint']
-        humidity = self.data['hourly']['data'][index]['humidity']
+        humidity = int(self.data['hourly']['data'][index]['humidity'] * 100)
         pressure = self.data['hourly']['data'][index]['pressure']
         windSpeed = self.data['hourly']['data'][index]['windSpeed']
         windGust = self.data['hourly']['data'][index]['windGust']
         windBearing = self.data['hourly']['data'][index]['windBearing']
-        cloudCover = self.data['hourly']['data'][index]['cloudCover']
+        cloudCover = int(self.data['hourly']['data'][index]['cloudCover'] * 100)
         uvIndex = self.data['hourly']['data'][index]['uvIndex']
         visibility = self.data['hourly']['data'][index]['visibility']
         ozone = self.data['hourly']['data'][index]['ozone']
@@ -179,8 +196,7 @@ class ForecastRequest:
 ##                windSpeed, windGust, windBearing, cloudCover, uvIndex,
 ##                visibility, ozone)
         return (tm, summary, temperature, apparentTemperature, dewPoint,
-                int(humidity * 100), windSpeed, windGust, windBearing,
-                int(cloudCover * 100), uvIndex)
+                humidity, windSpeed, windGust, windBearing, cloudCover, uvIndex)
 
     ''' Daily data request '''
     def getDailySummary(self):
@@ -193,21 +209,27 @@ class ForecastRequest:
         return len(self.data['daily']['data'])
 
     def getDailyData(self, index=0):
-##        tm = time.ctime(self.data['daily']['data'][index]['time'])
         tm = datetime.datetime.fromtimestamp(self.data['daily']['data'][index]['time']).strftime('%a %d %b %Y')
         summary = self.data['daily']['data'][index]['summary']
         icon = self.data['daily']['data'][index]['icon']
-##        sunriseTime = time.ctime(self.data['daily']['data'][index]['sunriseTime'])
-##        sunsetTime = time.ctime(self.data['daily']['data'][index]['sunsetTime'])
         sunriseTime = datetime.datetime.fromtimestamp(self.data['daily']['data'][index]['sunriseTime']).strftime('%H:%M:%S')
         sunsetTime = datetime.datetime.fromtimestamp(self.data['daily']['data'][index]['sunsetTime']).strftime('%H:%M:%S')
 ##        moonPhase = self.data['daily']['data'][index]['moonPhase']
         precipIntensity = self.data['daily']['data'][index]['precipIntensity']
         precipIntensityMax = self.data['daily']['data'][index]['precipIntensityMax']
         precipIntensityMaxTime = time.ctime(self.data['daily']['data'][index]['precipIntensityMaxTime'])
-##        precipIntensityError = self.data['daily']['data'][index]['precipIntensityError']
+
+##        if precipIntensity > 0:
+##            precipIntensityError = self.data['daily']['data'][index]['precipIntensityError']
+##        else:
+##            precipIntensityError = 'N/A'
+
         precipProbability = self.data['daily']['data'][index]['precipProbability']
-##        precipType = self.data['daily']['data'][index]['precipType']
+        if precipProbability > 0:
+            precipType = self.data['daily']['data'][index]['precipType']
+        else:
+            precipType = 'N/A'
+
         temperatureHigh = self.data['daily']['data'][index]['temperatureHigh']
         temperatureHighTime = time.ctime(self.data['daily']['data'][index]['temperatureHighTime'])
         temperatureLow = self.data['daily']['data'][index]['temperatureLow']
@@ -217,13 +239,13 @@ class ForecastRequest:
         apparentTemperatureLow = self.data['daily']['data'][index]['apparentTemperatureLow']
         apparentTemperatureLowTime = time.ctime(self.data['daily']['data'][index]['apparentTemperatureLowTime'])
         dewPoint = self.data['daily']['data'][index]['dewPoint']
-        humidity = self.data['daily']['data'][index]['humidity']
+        humidity = int(self.data['daily']['data'][index]['humidity'] * 100)
         pressure = self.data['daily']['data'][index]['pressure']
         windSpeed = self.data['daily']['data'][index]['windSpeed']
         windGust = self.data['daily']['data'][index]['windGust']
         windGustTime = time.ctime(self.data['daily']['data'][index]['windGustTime'])
         windBearing = self.data['daily']['data'][index]['windBearing']
-        cloudCover = self.data['daily']['data'][index]['cloudCover']
+        cloudCover = int(self.data['daily']['data'][index]['cloudCover'] * 100)
         uvIndex = self.data['daily']['data'][index]['uvIndex']
         uvIndexTime = time.ctime(self.data['daily']['data'][index]['uvIndexTime'])
         visibility = self.data['daily']['data'][index]['visibility']
@@ -348,21 +370,29 @@ class ForecastRequest:
         print('\nMinutely Weather Data...')
         print('Summary: {}, Icon: {}'.format(self.getMinutelySummary(),
                                              self.getMinutelyIcon()))
-        precipitation_list = []
+##        precipitation_list = []
         precipitation_total = 0
         for idx in range(0, self.getMinutelyDataCount()):
             minutely_data = self.getMinutelyData(index=idx)
-            precipitation_time = minutely_data[0]
-            precipitation_probability = minutely_data[2]
+            
+##            precipitation_time = minutely_data[0]
+##            precipitation_intensity = minutely_data[1]
+##            precipitation_intensity_error = minutely_data[2]
+            precipitation_probability = minutely_data[3]
+##            precipitation_type = minutely_data[4]
+            
             precipitation_total = precipitation_total + precipitation_probability
-            precipitation_list.append((precipitation_time, precipitation_probability))
+##            precipitation_list.append((precipitation_time, precipitation_intensity_error, precipitation_probability, precipitation_type))
 
         if precipitation_total == 0:
             print("No precipitation within an hour")
         else:
             print("Precipitation within the next hour...")
+            x = PrettyTable()
+            x.field_names = ['Time', 'Intensity', 'Error', 'Probability', 'Type']
             for idx in range(0, self.getMinutelyDataCount()):
-                print('{} {} mm/h'.format(precipitation_list[idx][0], precipitation_list[idx][1]))
+##                print('{} {} mm/h'.format(precipitation_list[idx][0], precipitation_list[idx][1]))
+                x.add_row(self.getMinutelyData(index=idx))
                 
     def formattedHourlyWeatherData(self):
         print('\nHourly Weather Data...')
