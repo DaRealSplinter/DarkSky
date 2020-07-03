@@ -15,33 +15,33 @@ def main():
     args = cmd_parser.parse_args()
 
     # always print (lat, lon), timezone, offset; currently data; weather alerts
-    acworth = DarkSky.ForecastRequest()
-    print(acworth)  # prints (lat, lon), timezone, offset
-    acworth.printCurrentlyWeatherData()  # print the currently forecast
-    acworth.printAlerts()  # print any forecast weather alerts
+    report = DarkSky.ForecastRequest()
+    print(report)  # prints (lat, lon), timezone, offset
+    report.printCurrentlyWeatherData()  # print the currently forecast
+    report.printAlerts()  # print any forecast weather alerts
 
     if args.p:
-        acworth.printForecastRequest()  # prints requested JSON file
+        report.printForecastRequest()  # prints requested JSON file
         print()
     
     if args.s:
-        acworth.saveForecastRequest()  # saves requested JSON file to folder
+        report.saveForecastRequest()  # saves requested JSON file to folder
         print()
 
     if args.M:
-        acworth.formattedMinutelyWeatherData()
+        report.formattedMinutelyWeatherData()
         print()
 
     if args.H:
-        acworth.formattedHourlyWeatherData()
+        report.formattedHourlyWeatherData()
         print()
 
     if args.D:
-        acworth.formattedDailyWeatherData()
+        report.formattedDailyWeatherData()
         print()
 
     if args.F:
-        acworth.printFlags()
+        report.printFlags()
         print()
 
     print('Powered by Dark Sky: https://darksky.net/poweredby/')
