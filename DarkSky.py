@@ -392,6 +392,7 @@ class ForecastRequest:
             x.field_names = ['Time', 'Intensity', 'Error', 'Probability', 'Type']
             for idx in range(0, self.getMinutelyDataCount()):
                 x.add_row(self.getMinutelyData(index=idx))
+            print(x)
                 
     def formattedHourlyWeatherData(self):
         print('\nHourly Weather Data...')
