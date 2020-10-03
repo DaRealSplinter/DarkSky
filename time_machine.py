@@ -32,11 +32,11 @@ def main():
         print()
 
     if args.H:        
-        tm.printHourlyWeatherData()
+        tm.formattedHourlyWeatherData()
         print()
 
     if args.D:
-        tm.printDailyWeatherData()
+        tm.formattedDailyWeatherData()
         print()
 
     if args.F:
